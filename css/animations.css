@@ -1,0 +1,183 @@
+/* ============================================
+   Animations & Transitions
+   ============================================ */
+
+/* ── Keyframes ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── Animation Classes ── */
+.animate-fade-in {
+  animation: fadeIn var(--transition-base) ease forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.4s ease forwards;
+}
+
+.animate-slide-in {
+  animation: slideInFromBottom 0.6s ease forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ── Staggered Card Animations ── */
+.movie-card {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.movie-card:nth-child(1)  { animation-delay: 0.05s; }
+.movie-card:nth-child(2)  { animation-delay: 0.1s; }
+.movie-card:nth-child(3)  { animation-delay: 0.15s; }
+.movie-card:nth-child(4)  { animation-delay: 0.2s; }
+.movie-card:nth-child(5)  { animation-delay: 0.25s; }
+.movie-card:nth-child(6)  { animation-delay: 0.3s; }
+.movie-card:nth-child(7)  { animation-delay: 0.35s; }
+.movie-card:nth-child(8)  { animation-delay: 0.4s; }
+.movie-card:nth-child(9)  { animation-delay: 0.45s; }
+.movie-card:nth-child(10) { animation-delay: 0.5s; }
+
+/* ── Hero Animation ── */
+.hero__title {
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+.hero__subtitle {
+  opacity: 0;
+  animation: fadeInUp 0.7s 0.15s ease forwards;
+}
+
+.search-section {
+  opacity: 0;
+  animation: fadeInUp 0.7s 0.3s ease forwards;
+}
+
+/* ── Spinner ── */
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--glass-border);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.spinner--lg {
+  width: 40px;
+  height: 40px;
+  border-width: 4px;
+}
+
+/* ── Loading Container ── */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16);
+  gap: var(--space-4);
+}
+
+.loading-container__text {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+/* ── Button Press Effect ── */
+.btn-press {
+  transition: transform var(--transition-fast);
+}
+
+.btn-press:active {
+  transform: scale(0.96);
+}
+
+/* ── Hover Glow ── */
+.hover-glow {
+  transition: box-shadow var(--transition-base);
+}
+
+.hover-glow:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+/* ── Reduce Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
