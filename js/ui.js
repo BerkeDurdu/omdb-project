@@ -271,7 +271,7 @@ export function createMovieDetail(movie) {
             </div>
           ` : ''}
 
-          <button class="modal__watchlist-btn ${modalInWatchlist ? 'active' : ''}" id="modal-watchlist-btn" aria-label="${watchlistLabel}">
+          <button class="modal__watchlist-btn ${modalInWatchlist ? 'active' : ''}" id="modal-watchlist-btn" aria-label="${watchlistLabel}" data-imdbid="${movie.imdbID}">
             <span class="modal__watchlist-icon">${modalInWatchlist ? icons.heartFilled : icons.heartOutline}</span>
             <span class="modal__watchlist-text">${watchlistLabel}</span>
           </button>

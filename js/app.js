@@ -5,7 +5,7 @@
 import { initializeState, parseUrlHash } from './state.js';
 import { initSearch, performSearch, showWelcome } from './search.js';
 import { initDetail, openDetail } from './detail.js';
-import { getWatchlist, getWatchlistCount, onWatchlistChange, removeFromWatchlist } from './watchlist.js';
+import { getWatchlist, getWatchlistCount, onWatchlistChange, removeFromWatchlist, isInWatchlist } from './watchlist.js';
 import { icons } from './ui.js';
 import { isValidPoster, sanitize } from './utils.js';
 
@@ -213,11 +213,39 @@ function initWatchlistPanel() {
     }
   });
 
-  // Listen for watchlist changes to update badge
-  onWatchlistChange(updateBadge);
+  // Listen for watchlist changes to update badge and UI
+  onWatchlistChange(() => {
+    updateBadge();
+    syncWatchlistUI();
+  });
 
   // Initial badge update
   updateBadge();
+}
+
+function syncWatchlistUI() {
+  // Update movie grid buttons
+  document.querySelectorAll('.movie-card__watchlist-btn').forEach(btn => {
+    const imdbId = btn.dataset.imdbid;
+    if (imdbId) {
+      const inList = isInWatchlist(imdbId);
+      btn.classList.toggle('active', inList);
+      btn.innerHTML = inList ? icons.heartFilled : icons.heartOutline;
+      btn.setAttribute('aria-label', inList ? 'Remove from watchlist' : 'Add to watchlist');
+    }
+  });
+
+  // Update modal button if present
+  const modalBtn = document.getElementById('modal-watchlist-btn');
+  if (modalBtn && modalBtn.dataset.imdbid) {
+    const inList = isInWatchlist(modalBtn.dataset.imdbid);
+    modalBtn.classList.toggle('active', inList);
+    const iconEl = modalBtn.querySelector('.modal__watchlist-icon');
+    const textEl = modalBtn.querySelector('.modal__watchlist-text');
+    if (iconEl) iconEl.innerHTML = inList ? icons.heartFilled : icons.heartOutline;
+    if (textEl) textEl.textContent = inList ? 'Remove from Watchlist' : 'Add to Watchlist';
+    modalBtn.setAttribute('aria-label', inList ? 'Remove from Watchlist' : 'Add to Watchlist');
+  }
 }
 
 // Boot when DOM is ready
